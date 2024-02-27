@@ -130,7 +130,7 @@ class TaskAssistantService:
         # self.tables = list_tables()
         self.tools = [run_query_tool, describe_tables_tool]
         self.systemContext = ("Your role involves managing database operations for the 'customer', 'project', "
-                              "and 'task' tables. Understand table structures with 'describe_tables' function, "
+                              "and 'tasks' tables. Understand table structures with 'describe_tables' function, "
                               "gather any missing information from users, ensure data is correct, craft and execute "
                               "PostgresSQL insertion queries using 'run_postgresql_query' function. Communicate "
                               "clearly and professionally, avoiding technical jargon or exposing errors directly.")
@@ -184,8 +184,8 @@ if "task_assistant_obj" not in st.session_state:
 # user input
 user_query = st.chat_input("Type your message here...")
 if user_query is not None and user_query != "":
-    st.session_state.chat_history.append(HumanMessage(content=user_query))
     response = st.session_state.task_assistant_obj.runAgent(user_query)
+    st.session_state.chat_history.append(HumanMessage(content=user_query))
     st.session_state.chat_history.append(AIMessage(content=response))
 
 # conversation
